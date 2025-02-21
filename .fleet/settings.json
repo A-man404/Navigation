@@ -1,0 +1,6 @@
+{
+    "editor.formatOnSave": true,
+    "prettier.mode": "Auto",
+    "prettier.applicableFilesGlob": "{**/*,*}.{js,ts,jsx,tsx} *",
+    "autoSave": "OnFocus"
+}
