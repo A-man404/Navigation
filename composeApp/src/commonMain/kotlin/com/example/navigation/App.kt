@@ -1,18 +1,25 @@
 package com.example.navigation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
@@ -25,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
@@ -48,27 +56,52 @@ object MainScreen : Screen {
     override fun Content() {
         val name = remember { mutableStateOf("") }
         val navigator = LocalNavigator.currentOrThrow
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            TextField(value = name.value,
-                onValueChange = { name.value = it },
-                placeholder = { Text("Please enter your name") })
-            Spacer(Modifier.height(16.dp))
-            Button(onClick = {
-                navigator.push(SecondScreen(name.value))
-            }) {
-                Text("Send Name")
-            }
-            Spacer(Modifier.height(16.dp))
-            Button(onClick = {
-                navigator.push(ThirdScreen)
-            }) {
-                Text("Go to Third Screen")
-            }
+        Scaffold(topBar = {
+            TopAppBar(
+                backgroundColor = Color(0xff89dceb),
+                elevation = 5.dp,
+                title = { Text("Navigation With Voyager", color = Color(0xff1e1e2e)) },
+            )
+        }) {
+            Column(
+                modifier = Modifier.fillMaxSize().background(Color(0xff89dceb)),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    "Navigation with Voyager",
+                    fontSize = 32.sp,
+                    color = Color(0xff1e1e2e),
 
+                    )
+                Spacer(Modifier.height(40.dp))
+                TextField(modifier = Modifier.fillMaxWidth().padding(16.dp),
+                    value = name.value,
+                    onValueChange = { name.value = it },
+                    colors = TextFieldDefaults.textFieldColors(
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        disabledIndicatorColor = Color.Transparent
+                    ),
+                    shape = RoundedCornerShape(16.dp),
+                    placeholder = { Text("Please enter your name", color = Color.Gray) })
+                Spacer(Modifier.height(16.dp))
+                Button(colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffa6e3a1)),
+                    onClick = {
+                        navigator.push(SecondScreen(name.value))
+
+                    }) {
+                    Text("Send Name")
+                }
+                Spacer(Modifier.height(16.dp))
+                Button(colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xfffab387)),
+                    onClick = {
+                        navigator.push(ThirdScreen)
+                    }) {
+                    Text("Go to Third Screen")
+                }
+
+            }
         }
     }
 
@@ -91,7 +124,11 @@ object MainScreen : Screen {
         override fun Content() {
             TabNavigator(HomeScreen) { tabNavigator ->
                 Scaffold(bottomBar = {
-                    BottomNavigation(backgroundColor = Color(0xffb4befe), elevation = 16.dp) {
+                    BottomNavigation(
+                        backgroundColor = Color(0xff1e1e2e),
+                        elevation = 16.dp,
+                        contentColor = Color(0xffcdd6f4)
+                    ) {
                         BottomNavigationItem(selected = tabNavigator.current == HomeScreen,
                             onClick = { tabNavigator.current = HomeScreen },
                             icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
@@ -126,10 +163,11 @@ object MainScreen : Screen {
         override fun Content() {
             val navigator = LocalNavigator.currentOrThrow
             Column(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().background(Color(0xffb4befe)),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
+                Text("HomeScreen")
                 Button(onClick = { navigator.push(ProfileScreen) }) {
                     Text("Go To Profile Screen")
                 }
@@ -147,7 +185,7 @@ object MainScreen : Screen {
         @Composable
         override fun Content() {
             Column(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().background(Color(0xfff38ba8)),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -166,7 +204,7 @@ object MainScreen : Screen {
         @Composable
         override fun Content() {
             Column(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().background(Color(0xfff9e2af)),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
