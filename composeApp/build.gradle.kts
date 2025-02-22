@@ -53,6 +53,11 @@ kotlin {
             implementation(libs.decompose.jetbrains)
             implementation(libs.kotlinx.serialization.json)
             implementation (libs.androidx.material3) // or latest version
+            implementation("cafe.adriel.voyager:voyager-navigator:1.0.0")
+            implementation("cafe.adriel.voyager:voyager-screenmodel:1.0.0")
+            implementation("cafe.adriel.voyager:voyager-transitions:1.0.0")
+            implementation("cafe.adriel.voyager:voyager-tab-navigator:1.0.0")
+
 
         }
         desktopMain.dependencies {
