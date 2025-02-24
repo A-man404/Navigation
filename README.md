@@ -11,4 +11,4 @@ This is a Kotlin Multiplatform project targeting Android, iOS, Desktop.
   you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
 
 
-# It is a learning project
+# It is a learning project nothing much
